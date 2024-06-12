@@ -1,0 +1,192 @@
+<!--******************************************************************************
+	Ditto 상품 상세페이지 페이지
+
+	update : 2024-05-20
+	
+	관리자 : 김희정
+	
+  코딩 매뉴얼.
+	- 상품 상세페이지으로 보여주는 기능을 만들어주세요
+	- 상품을 장바구니에 넣는 기능을 구현해주세요
+	- 파리미터를 받아와서 정보를 출력
+
+ ******************************************************************************-->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=divice-width, initial-scale=1.0" >
+
+<title>Ditto</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+	<link rel="stylesheet" href="../../../fonts/icomoon/style.css">
+	
+	<link rel="stylesheet" href="../../../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../../css/magnific-popup.css">
+	<link rel="stylesheet" href="../../../css/jquery-ui.css">
+	<link rel="stylesheet" href="../../../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../../../css/owl.theme.default.min.css">
+	
+	
+	<link rel="stylesheet" href="../../../css/aos.css">
+	
+	<link rel="stylesheet" href="../../../css/style.css">
+	<script>
+	function p(i){
+		let v = parseInt(document.getElementById('updown').value)
+		window.location.href = "addcart?prodId=" + i + "&cartCount=" +  v
+	}
+	
+	</script>
+</head>
+<body>
+	<div class="site-wrap">
+		<div th:replace="~{features/top :: replTop}"></div>
+		   <!-- 상단 바 밑 경로 바 -->
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="main">Home</a> <span class="mx-2 mb-0">/</span> <a href="shop">Shop</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Gray Shoe</strong></div>
+        </div>
+      </div>
+    </div>  
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+        
+        <form action="/admin/shopMax" method="get" id="shopMax"></form>
+        
+          <div class="col-md-6">
+            <div class="item-entry">
+              <a href="#" class="product-item md-height bg-gray d-block">
+               <img th:src="|../../../ditto/2024/${dto.pathUrl}|"  alt="Image" class="img-fluid">
+              </a>
+              
+            </div>
+
+          </div>
+          
+ 
+          <!-- 상품 상세 설명 -->
+          <div class="col-md-6">
+            <h2 class="text-black">[[${dto.prodNm}]]</h2>
+            <p>[[${dto.ctgCd}]]</p>
+            <p class="mb-4">[[${dto.prodNm}]]</p>
+            <p><strong class="text-primary h4">[[${dto.salePrice}]] 원</strong></p>
+            <input type="hidden" th:value="@{${dto.prodId}}">
+
+
+           <!-- 선택 옵션 -->
+            <div class="mb-1 d-flex">
+              <label for="option-sm" class="d-flex mr-3 mb-3">
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
+              </label>
+              <label for="option-md" class="d-flex mr-3 mb-3">
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
+              </label>
+              <label for="option-lg" class="d-flex mr-3 mb-3">
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
+              </label>
+              <label for="option-xl" class="d-flex mr-3 mb-3">
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
+              </label>
+            </div>
+           
+           
+           
+           
+           <!-- 상품 갯수 추가 기능 -->
+           
+            <div class="mb-5">
+              <div class="input-group mb-3" style="max-width: 120px;">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+              </div>
+              <input type="text" class="form-control text-center" id="updown" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+              </div>
+            </div>
+            </div>
+            
+            
+            
+           <!-- 장바구니 담기 -->
+            <button th:onclick="p([[${dto.prodId}]])" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary" >장바구니 추가</button>
+        <!--     <p><a th:href="@{addcart(prodId=${dto.prodId})} " class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary" >장바구니 추가</a></p>-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <div class="site-section block-3 site-blocks-2">
+      <div class="container">
+      <div th:if="${dto.pathUrl}">
+              <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>상세정보</h2>
+          </div>
+        </div>
+    	<span th:utext="${dto.dlvyAdd}"></span>
+		</div>
+      </div>
+      </div>
+
+
+
+<!-- 연관 상품 -->
+    <div class="site-section block-3 site-blocks-2">
+      <div class="container">
+      <table class="table">
+                <div class="col-md-7 site-section-heading text-left pt-4">
+            <h2>상품정보</h2>
+          </div>
+                                        <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">상품상세</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>배송비</td>
+                                        <td>[[${dto.salePrice}]]</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">2</th>
+                                        <td>반품 배송비</td>
+                                        <td>[[${dto.dlvyCost}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>재고</td>
+                                        <td>[[${dto.realCnt}]]</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>상품코드</td>
+                                        <td>[[${dto.prodId}]]</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+   <div class="col-md-7 site-section-heading text-left pt-4">
+            <h2>상품 QR 코드</h2>
+            <img style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" th:src="|https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=192.168.0.24:80/admin/shopMax?prodId=${dto.prodId}|">
+            
+          </div>
+      </div>
+    </div>
+		<div th:replace="~{features/footer :: replFoot}"></div>
+	</div>
+		<div th:replace="~{shared/script/TempScript :: repscript}"></div>
+</body>
+</html>
