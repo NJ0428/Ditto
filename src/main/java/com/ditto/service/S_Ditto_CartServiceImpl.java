@@ -2,11 +2,13 @@ package com.ditto.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.ditto.dto.CartDTO;
 import com.ditto.entity.S_Ditto_CartEntity;
+import com.ditto.entity.S_Ditto_OrderEntity;
 import com.ditto.repository.S_Ditto_CartRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -57,5 +59,17 @@ public class S_Ditto_CartServiceImpl implements S_Ditto_CartService {
 	public List<S_Ditto_CartEntity> getList() {
 		return cartRepository.findAll();
 	}
+
+	@Override
+	public List<CartDTO> getCartByMemberId(String memberId) {
+		return null;
+		// 사용자 아이디를 기반으로 해당 사용자의 주문 내역을 조회하여 DTO로 변환하여 반환
+//        List<S_Ditto_OrderEntity> orders = orderRepository.findByMemberId(memberId);
+//        return orders.stream()
+//                .map(this::entityToDto)
+//                .collect(Collectors.toList());
+	}
+	
+	
 
 }

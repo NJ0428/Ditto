@@ -1,5 +1,6 @@
 package com.ditto.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,19 @@ public class S_Ditto_QServicelmpl implements S_Ditto_QService {
 
 	@Override
 	public List<S_Ditto_QEntity> getList() {
-		return qRepository.findAll();
+		// 데이터베이스에서 모든 엔티티를 가져옴
+        List<S_Ditto_QEntity> list = qRepository.findAll();
+        
+        // 리스트를 역순으로 뒤집음
+        Collections.reverse(list);
+        
+        // 역순으로 뒤집힌 리스트를 반환함
+        return list;
 	}
+	
+	
+	
+	
+	
 
 }

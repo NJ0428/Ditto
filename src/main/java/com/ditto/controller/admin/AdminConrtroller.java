@@ -1,5 +1,7 @@
 package com.ditto.controller.admin;
 
+import java.security.Principal;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.security.access.annotation.Secured;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ditto.dto.M_QDTO;
+import com.ditto.dto.MemberDTO;
 import com.ditto.dto.OrderDTO;
 import com.ditto.dto.PageRequestDTO;
 import com.ditto.dto.ProdDTO;
@@ -150,11 +153,14 @@ public class AdminConrtroller {
     
     //checkout 페이지
     @GetMapping("/checkout")
-    public String checkout(Model model) { 	 
-    	model.addAttribute("result", cartService.getList());
-    	model.addAttribute("result2", memberService.get(23L));
+    public String checkout(Model model , Principal principal) { 
+    	String loginId = principal.getName(); // 로그인된 사용자의 loginId를 가져옵니다.
+    	MemberDTO member = memberService.getMemberByLoginId(loginId); // 회원 조회
     	
-    	log.info(memberService.get(3L));
+    	
+    	model.addAttribute("result", cartService.getList());
+    	model.addAttribute("result2", memberService.get(member.getMemberNo()));
+    	
     	return "pages/admin/pord/checkout";
     }
   
@@ -196,16 +202,20 @@ public class AdminConrtroller {
     }
 
     @GetMapping("/addinfo")
-    public String addinfo(@RequestParam("prodId") Long prodId, @RequestParam("cartCount") int cartCount, @RequestParam("cartNo") Long cartNo ) {
-          
+    public String addinfo(@RequestParam("prodId") Long prodId, @RequestParam("cartCount") int cartCount, @RequestParam("cartNo") Long cartNo) {
+   System.out.println("545"+memberService.get(cartService.get(cartNo).getLoginNo()));
+
       ProdDTO prodDTO = prodService.get(prodId);
+      
+      
        log.info("-------------------" + prodDTO);
        OrderDTO dto = OrderDTO.builder()
             .prodId(prodId)
             .prodNm(prodDTO.getProdNm())
-            .memberId("cons")
+            .memberId(memberService.get(cartService.get(cartNo).getLoginNo()).getLoginId())
             .orderQuantity(cartCount)
             .orderPrice(prodDTO.getSalePrice())
+            .ordImg(prodDTO.getPathUrl())
             .orderStatus("N")
             .build();
        orderService.register(dto);

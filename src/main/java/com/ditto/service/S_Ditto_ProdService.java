@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.ditto.dto.GetProdDTO;
 import com.ditto.dto.PageRequestDTO;
 import com.ditto.dto.PageResultDTO;
 import com.ditto.dto.ProdDTO;

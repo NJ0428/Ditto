@@ -3,7 +3,6 @@ package com.ditto.service;
 import java.util.List;
 
 import com.ditto.dto.CartDTO;
-import com.ditto.dto.MemberDTO;
 import com.ditto.dto.OrderDTO;
 import com.ditto.dto.PageRequestDTO;
 import com.ditto.dto.PageResultDTO;
@@ -26,6 +25,7 @@ public interface S_Ditto_OrderService {
 				.orderDate(dto.getOrderDate())
 				.orderStatus(dto.getOrderStatus())
 				.expectYn(dto.getExpectYn())
+				.ordImg(dto.getOrdImg())
 				.build();
 		return Order;
     }
@@ -42,6 +42,7 @@ public interface S_Ditto_OrderService {
 				.orderDate(dto.getOrderDate())
 				.orderStatus(dto.getOrderStatus())
 				.expectYn(dto.getExpectYn())
+				.ordImg(dto.getOrdImg())
 				.build();
 		return orderDTO;
 	}

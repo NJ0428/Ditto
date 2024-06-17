@@ -44,7 +44,7 @@ public class PordController {
     @PostMapping("/prodReg")
     public String pordRegPost(ProdDTO prodDTO , RedirectAttributes redirectAttributes) {
     	
-    	System.out.println("ddd"+prodDTO);
+    	//System.out.println("ddd"+prodDTO);
     	Long prodid = prodService.register(prodDTO);
     	
     	if(prodid < 0) {
@@ -55,12 +55,37 @@ public class PordController {
     	return "redirect:pordList";
     }
     
-    
+    @PostMapping("/prodRegtest")
+    public String prodRegtest( ) {
+    	
+
+    	
+    	
+       	ProdDTO dto = ProdDTO.builder()
+                .prodNm("울 디태처블 더플 코트")
+               .originPrice(100000)
+               .salePrice(180000)
+               .margin(0.0)
+               .taxTp("1")
+               .realCnt(123)
+               .prodDesc("<img src='../../../ditto/2024/남성아우터1_상세.jpg'/>")
+               .saleStatus("판매중")
+               .dlvyTp("1")
+               .dlvyCost(2500)
+               .dlvyCostRe(2500)
+               .dlvyAdd("<img src='../../../ditto/2024/남성아우터1_상세.jpg'/>")
+               .ctgCd(1L)
+               .pathUrl("남성아우터1.jpg")
+                .build();
+	    System.out.println(prodService.register2(dto));
+
+    	return "redirect:pordList";
+    }
     @GetMapping("/pordList")
     public String pordList(PageRequestDTO pageRequestDTO,Model model) {
     	
-    	log.info("41545"+prodService.getList2(pageRequestDTO));
-    	model.addAttribute("result", prodService.getList2(pageRequestDTO));
+    	log.info("41545"+prodService.m_getList(pageRequestDTO));
+    	model.addAttribute("result", prodService.m_getList(pageRequestDTO));
     	    	
  
     	return "pages/seller/prod/pordList";

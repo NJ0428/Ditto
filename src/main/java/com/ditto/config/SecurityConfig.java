@@ -59,6 +59,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/removeFile").permitAll()
                         .requestMatchers(HttpMethod.GET, "/display").permitAll()
 	            	    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+	            	    //index 수정 필요
 	            	    .requestMatchers("/**","/mdcss/**", "/lib/**", "/img/**", "/fonts/**", "/testimg/**","/css2/**", "/icon/**","/images/**", "/css/**", "/js/**","/ditto/**").permitAll() // 특정 경로는 모두 허용
 	            	    .requestMatchers("/admin/myPage").authenticated() // 로그인 한 회원만 접근 가능, 비회원일시 로그인 페이지로 리다이렉션
 	            	    .requestMatchers("/master/**").hasRole("M") // 마스터만 접근 가능

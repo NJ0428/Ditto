@@ -69,7 +69,7 @@ public class LoginConrtroller {
 	   //마이페이지 
 	   @GetMapping("/myPage")
 	   public String myPage(Model model, Principal principal) {
-	      
+	      System.out.println(model+"dfddsf"+principal);
 	       String loginId = principal.getName(); // 로그인된 사용자의 loginId를 가져옵니다.
 	       
 	       MemberDTO member = memberService.getMemberByLoginId(loginId); // 회원 조회

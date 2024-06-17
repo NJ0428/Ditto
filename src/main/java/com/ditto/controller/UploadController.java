@@ -191,7 +191,7 @@ public class UploadController {
 	//Root 하위에 생성될 날짜이름으로 생성될 폴더를 생성하는 메서드 정의
 	private String mkFolder() {
 		//현재 날짜정보를 얻어냅니다..폴더명으로 사용됨
-		String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd"));
+		String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
 		
 		//새로운 폴더를 생성할건데, 반드시 root 하위에 존재해야함..
 		File uploadPathFolder = new File(uploadPath, str);

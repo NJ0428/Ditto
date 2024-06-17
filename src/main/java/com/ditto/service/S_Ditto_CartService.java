@@ -44,4 +44,5 @@ public interface S_Ditto_CartService {
 	//리스트 출력
 	public List<S_Ditto_CartEntity> getList();
 
+	List<CartDTO> getCartByMemberId(String memberId);
 }

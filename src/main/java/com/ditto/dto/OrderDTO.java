@@ -19,5 +19,6 @@ public class OrderDTO {
 	private double orderPrice;
 	private LocalDateTime orderDate;
 	private String orderStatus;
+	private String ordImg;	
 	private String expectYn;
 }
